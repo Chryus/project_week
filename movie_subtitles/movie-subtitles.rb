@@ -8,28 +8,51 @@
 #{}"at the left we can see..."]
 #[[1.00:03:10,500 --> 00:00:13,000]["Elephant's Dream"]]
 
+require 'ap'
+
 class Subtitle
 
 #srts = [1.00:03:10,500 --> 00:00:13,000]
 
   attr_accessor :input_file
 
-  def initialize
-     @input_file
+  def initialize(input_file)
+     @input_file = input_file
   end
 
-  def regex(input_file)
-    input_file.match(/(?<hour1>.*):(?<minutes1>.*):(?<seconds1>.*)--> (?<hour2>.*):(?<minutes2>.*):(?<seconds2>.*)/)
+  def match_seconds
+    input_file.scan(/(?<=\:)(\d{2},\d{3})/).flatten#/(?<hour1>.*):(?<minutes1>.*):(?<seconds1>.*)--> (?<hour2>.*):(?<minutes2>.*):(?<seconds2>.*)/).flatten
   end
 
-  def convert_file_to_string()
-    file.to_s
+  def replace_commas
+    match_seconds.collect {|index| index.gsub(/,/, ".")}
   end
 
-  def operation_add
-
+  def shift_time_forward(time)
+    replace_commas.collect{|index| (index + time)}
   end
-
- #puts a = "00:03:10,500 --> 00:00:13,000".match(/(?<hour1>.*):(?<minutes1>.*):(?<seconds1>.*)--> (?<hour2>.*):(?<minutes2>.*):(?<seconds2>.*)/)
 end
+
+# sub = Subtitle.new("1/n 00:03:10,500 --> 00:00:13,000/n Elephant's Dream")
+# ap sub.regex
+
+# sub = Subtitle.new("1
+#         00:03:10,500 --> 00:00:13,000
+#         Elephant's Dream")
+# sub.input_file
+# ap sub.regex
+
+#.sort
+# flatten
+# sort
+
+  # def access_time_values
+  #   reg = regex
+  #   num = reg.length
+  #   num.times do |index|
+  #     if reg.captures[index].
+  #     end
+  #     #{}"Capture ##{index}: #{reg.captures[index]}"
+  #   end
+  # end
 
