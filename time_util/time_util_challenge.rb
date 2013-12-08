@@ -31,18 +31,21 @@ class Flight < Time
 	end
 
 	def parse_time
-		reg = /(\d{2})/
+		reg = /(\d{2})|(\d{1})/
 		time_parse = arrivals.collect {|time| time.scan(reg)}.flatten
 		time_out_of_strings = time_parse.collect{|time| time.to_i}
+		time_out_of_strings.delete_if{|i| i == 0}
 	end
 
 	def hours_to_minutes
-		hours = parse_time.values_at(0,2,4,6,8)
+		#need to conver this needs evens
+		hours = parse_time.select.each_with_index{|num, i| i.even?}#values_at(0,2,4,6,8)
 		hours.collect{|hour| hour * 60}
 	end
 
 	def add_extra_minutes
-		minutes = parse_time.values_at(1,3,5,7,9)
+		#need to convert this to odds
+		minutes = parse_time.select.each_with_index{|num, i| i.odd?}#values_at(1,3,5,7,9)
   	hours_to_minutes.zip(minutes).map{|both| both.reduce(:+)}
 	end
 
@@ -55,19 +58,28 @@ class Flight < Time
 	end
 
 	def hours_remainder
-		mean_minutes_to_hours - mean_minutes_to_hours.round(0)
+		(mean_minutes_to_hours - mean_minutes_to_hours.round(0)).abs
 	end
 
+	# def hours_remainder
+	# 	#
+	# 	if mean_minutes_to_hours.round(0) < mean_minutes_to_hours
+	# 		mean_minutes_to_hours - mean_minutes_to_hours.round(0)
+	# 	else
+	# 		mean_minutes_to_hours.round(0) - mean_minutes_to_hours
+	# 	end
+	# 	#else			#mean_minutes_to_hours - mean_minutes_to_hours.round(2)
+	# end
+
 	def hours_remainder_to_minutes
-		#take the remainder in hours and convert to minutes, round to the whole minute, and convert to decimal
-		((hours_remainder * 100)*60/100).round(0).to_f/100
+		((hours_remainder * 100)*60/100).round(0).to_f/100	#take the remainder in hours and convert to minutes, round to the whole minute, and convert to decimal
 	end
 
 	def add_minutes_to_hours
 		hours_remainder_to_minutes + mean_minutes_to_hours.round(0)
 	end
 
-	def return_average_flight_time
+	def return_average_flight_time_midnight
 		reg = /(\.)/
 		if add_minutes_to_hours > 12
 			time = add_minutes_to_hours.to_s.gsub(reg, ":")
@@ -79,11 +91,48 @@ class Flight < Time
 		time
 	end
 
+	def return_average_flight_time_midday
+		reg = /(\.)/
+		if add_minutes_to_hours < 12
+			time = add_minutes_to_hours.to_s.gsub(reg, ":")
+			time<<"am"
+		else
+			time = add_minutes_to_hours.to_s.gsub(reg, ":")
+			time<<"pm"
+		end
+		time
+	end
+
+	def return_average_flight_time
+		reg = /(\.)/
+		if arrivals[0].include?("am")
+			time = add_minutes_to_hours.to_s.gsub(reg, ":")
+			time<<"am"
+		else
+			time = add_minutes_to_hours.to_s.gsub(reg, ":")
+			time<<"pm"
+		end
+		time
+	end
+
+	def return_flight
+		average_time = nil
+		if arrivals[0].include?("pm") && arrivals[-1].include?("am") 
+			average_time = return_average_flight_time_midnight
+		elsif arrivals[0].include?("am") && arrivals[-1].include?("pm")
+			average_time = return_average_flight_time_midday
+		else
+			average_time = return_average_flight_time
+		end
+		average_time
+	end
 	#sprintf "%.2f""%.2f" % 
 
 end
 
-flight = Flight.new(["11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"])
+flight = Flight.new(["6:41am", "6:51am", "7:01am"])
+p flight.parse_time
+p flight.hours_to_minutes
 p flight.add_extra_minutes
 p flight.mean_minutes
 p flight.mean_minutes_to_hours
@@ -91,5 +140,5 @@ p flight.hours_remainder
 p flight.hours_remainder_to_minutes
 p flight.add_minutes_to_hours
 p flight.add_minutes_to_hours.to_s
-p flight.return_average_flight_time
+p flight.return_flight
 
