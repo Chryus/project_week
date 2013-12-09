@@ -2,10 +2,20 @@ require './parser'
 require 'awesome_print'
 require 'debugger'
 
-class FlightCalculator
+#class FlightCalculator
+
+		#attr_reader :flight, :user_choice
 
 parser = Parser.new
 parser.make_flight_objects
+
+	#def initialize(user_choice=nil)
+	#	@user_choice = user_choice
+	#end
+
+	# def flight=(user_choice)
+	# 	@flight = Flight.all.select{|flight| flight = user_choice}
+	# end
 
 	def format_flights
 		reg = /(\d{1}):(\d{2})/
@@ -94,6 +104,33 @@ parser.make_flight_objects
 		average_time
 	end
 
-	puts "Hello, to see a list of flight arrival times please"
+	def print_flights
+	  Flight.all.each do |flight|
+	    puts flight.number   
+	  end
+	  puts "There are #{Flight.count} flights to choose from.\n"
+	end
 
-end
+	def print_all_arrival_times
+		puts "To see the average arrival time for any flight, please enter the flight number."
+		answer = gets.chomp.downcase
+		#FlightCalculator.new(answer)
+		if answer == flight.number
+			flight.return_flight
+		end
+	end
+	
+	#def flight_program
+	puts "Hello, would you like to see a list of flights? (y/n) "
+	answer = gets.chomp.downcase
+		if answer == "y"
+			print_flights
+			print_all_arrival_times
+		else
+			print "Good luck with your flight."
+		end
+	#end
+#end
+
+#one = FlightCalculator.new
+#one.flight_program

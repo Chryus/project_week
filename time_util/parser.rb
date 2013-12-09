@@ -4,19 +4,33 @@ require 'debugger'
 
 class Parser 
 
-flight_array = [["11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"]
-["8:30pm", "9:30pm", "11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"]
-["8:30am", "9:30am", "11:51am", "11:56am", "12:01pm", "12:06pm", "12:11pm"]
-["1:30pm", "1:35pm", "2:51pm", "1:56pm", "2:01pm", "3:06pm", "2:00pm"]
-["4:20pm", "5:35pm", "1:51pm", "6:56pm", "6:01pm", "8:06pm"]]
+def grab_flight_array
+	flight_array = [["11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"],
+	["8:30pm", "9:30pm", "11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"],
+	["8:30am", "9:30am", "11:51am", "11:56am", "12:01pm", "12:06pm", "12:11pm"],
+	["1:30pm", "1:35pm", "2:51pm", "1:56pm", "2:01pm", "3:06pm", "2:00pm"],
+	["4:20pm", "5:35pm", "1:51pm", "6:56pm", "6:01pm", "8:06pm"]]
+end
 
 	def make_flight_objects
-		flight_array.each do |arrival_times|
-			flight = Flight.new(arrival_times, rand(223...2046))
+		grab_flight_array.each do |arrival_times|
+			Flight.new(arrival_times)
 		end
 	end 	
 
 end
+
+# parser = Parser.new
+# parser.make_flight_objects
+# ap Flight.all
+
+# [
+#     [0] #<Flight:0x007fdd5393ae80 @number=1940, @arrivals=["11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"]>,
+#     [1] #<Flight:0x007fdd5393ae58 @number=1806, @arrivals=["8:30pm", "9:30pm", "11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"]>,
+#     [2] #<Flight:0x007fdd5393ae30 @number=1307, @arrivals=["8:30am", "9:30am", "11:51am", "11:56am", "12:01pm", "12:06pm", "12:11pm"]>,
+#     [3] #<Flight:0x007fdd5393ae08 @number=658, @arrivals=["1:30pm", "1:35pm", "2:51pm", "1:56pm", "2:01pm", "3:06pm", "2:00pm"]>,
+#     [4] #<Flight:0x007fdd5393ade0 @number=738, @arrivals=["4:20pm", "5:35pm", "1:51pm", "6:56pm", "6:01pm", "8:06pm"]>
+# ]
 
 # flight = Flight.new(["4:20pm", "5:35pm", "1:51pm", "6:56pm", "6:01pm", "8:06pm"])
 # p flight.parse_time
