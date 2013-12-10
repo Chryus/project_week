@@ -99,18 +99,18 @@ class Flight
     #sprintf "%.2f""%.2f" % 
 end
 
-p a = ["8:30pm", "9:30pm", "11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"]
-flight = Flight.new(["8:30pm", "9:30pm", "11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"])
-p flight.parse_time
-p flight.hours_to_minutes
-p flight.add_extra_minutes
-p flight.mean_minutes
-p flight.mean_minutes_to_hours
-p flight.hours_remainder
-p flight.hours_remainder_to_minutes
-p flight.add_minutes_to_hours
-p flight.add_minutes_to_hours.to_s
-p flight.return_flight
+# p a = ["8:30pm", "9:30pm", "11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"]
+# flight = Flight.new(["8:30pm", "9:30pm", "11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"])
+# p flight.parse_time
+# p flight.hours_to_minutes
+# p flight.add_extra_minutes
+# p flight.mean_minutes
+# p flight.mean_minutes_to_hours
+# p flight.hours_remainder
+# p flight.hours_remainder_to_minutes
+# p flight.add_minutes_to_hours
+# p flight.add_minutes_to_hours.to_s
+# p flight.return_flight
 
 
 # ["11:51pm", "11:56pm", "12:01am", "12:06am", "12:11am"]

@@ -18,7 +18,7 @@ class Flight
 		ALL.size
 	end
 	    def parse_time
-            reg = /(\d{1}):(\d{2})/
+            reg = /(\d{2}|\d{1}):(\d{2})/
             time_parse = arrivals.collect {|time| time.scan(reg)}.flatten
             time_out_of_strings = time_parse.collect{|time| time.to_i}
     end

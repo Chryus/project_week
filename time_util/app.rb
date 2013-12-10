@@ -16,7 +16,7 @@ class FlightChecker
 
 	def print_flights
 		Flight.all.each do |flight|
-			puts "\nFlight #{flight.number} | Arrival times: #{flight.arrivals}\n\n"
+			puts "\nFlight #{flight.number} | Arrival times: #{flight.arrivals}\n"
 		end
 	end
 
@@ -52,17 +52,24 @@ class FlightChecker
 	end
 
 	def app
-		wanna_see_flights?
-		which_flight?
+		while loop
+			wanna_see_flights?
+			which_flight?
+			puts "Would you like to check another flight? (y/n)."
+			if gets.chomp.downcase == "n"	
+				break
+			else
+				print_flights
+				which_flight?
+			end
+		end
 	end
 
 end
 
  calc = FlightChecker.new
  calc.app
-# Flight.all.each do |flight|
-# 	ap flight.number
-# end
+
 
 
 
