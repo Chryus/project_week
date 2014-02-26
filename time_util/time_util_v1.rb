@@ -1,4 +1,4 @@
-require 'ap'
+Wrequire 'ap'
 
 class Flight
 
@@ -42,7 +42,7 @@ class Flight
     end
 
     def hours_remainder_to_minutes
-            ((hours_remainder * 100)*60/100).round(0).to_f/100        #take the remainder in hours and convert to minutes, round to the whole minute, and convert to decimal
+            ((hours_remainder * 100)*60/100).round(0).to_f/100 #take the remainder in hours and convert to minutes, round to the whole minute, and convert to decimal
     end
 
     def add_minutes_to_hours
