@@ -67,8 +67,8 @@ class FlightChecker
 
 end
 
- calc = FlightChecker.new
- calc.app
+calc = FlightChecker.new
+calc.app
 
 
 
