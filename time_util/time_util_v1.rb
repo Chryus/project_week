@@ -52,11 +52,11 @@ class Flight
   def return_average_flight_time_midnight
     reg = /(\.)/
     if add_minutes_to_hours > 12
-            time = add_minutes_to_hours.to_s.gsub(reg, ":")
-            time<<"am"
+      time = add_minutes_to_hours.to_s.gsub(reg, ":")
+      time<<"am"
     else
-            time = add_minutes_to_hours.to_s.gsub(reg, ":")
-            time<<"pm"
+      time = add_minutes_to_hours.to_s.gsub(reg, ":")
+      time<<"pm"
     end
     time
   end
@@ -64,11 +64,11 @@ class Flight
   def return_average_flight_time_midday
     reg = /(\.)/
     if add_minutes_to_hours < 12
-            time = add_minutes_to_hours.to_s.gsub(reg, ":")
-            time<<"am"
+      time = add_minutes_to_hours.to_s.gsub(reg, ":")
+      time<<"am"
     else
-            time = add_minutes_to_hours.to_s.gsub(reg, ":")
-            time<<"pm"
+      time = add_minutes_to_hours.to_s.gsub(reg, ":")
+      time<<"pm"
     end
     time
   end
@@ -76,11 +76,11 @@ class Flight
   def return_average_flight_time
     reg = /(\.)/
     if arrivals[0].include?("am")
-            time = add_minutes_to_hours.to_s.gsub(reg, ":")
-            time<<"am"
+      time = add_minutes_to_hours.to_s.gsub(reg, ":")
+      time<<"am"
     else
-            time = add_minutes_to_hours.to_s.gsub(reg, ":")
-            time<<"pm"
+      time = add_minutes_to_hours.to_s.gsub(reg, ":")
+      time<<"pm"
     end
     time
   end
@@ -88,11 +88,11 @@ class Flight
   def return_flight
     average_time = nil
     if arrivals[0].include?("pm") && arrivals[-1].include?("am") 
-            average_time = return_average_flight_time_midnight
+      average_time = return_average_flight_time_midnight
     elsif arrivals[0].include?("am") && arrivals[-1].include?("pm")
-            average_time = return_average_flight_time_midday
+      average_time = return_average_flight_time_midday
     else
-            average_time = return_average_flight_time
+      average_time = return_average_flight_time
     end
     average_time
   end

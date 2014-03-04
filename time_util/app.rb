@@ -69,7 +69,3 @@ end
 
 calc = FlightChecker.new
 calc.app
-
-
-
-
